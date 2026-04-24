@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>MultiThreadingGetWorkItemController</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class MultiThreadingGetWorkItemController extends SysOperationServiceController
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new()
+    {
+        super(classStr(MultiThreadingGetWorkItemService),
+            methodStr(MultiThreadingGetWorkItemService, process), SysOperationExecutionMode::Synchronous);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>defaultCaption</Name>
+				<Source><![CDATA[
+    public ClassDescription defaultCaption()
+    {
+        return "Get work item";
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static MultiThreadingGetWorkItemController construct(SysOperationExecutionMode _executionMode = SysOperationExecutionMode::Synchronous)
+    {
+        MultiThreadingGetWorkItemController controller = new MultiThreadingGetWorkItemController();
+        controller.parmExecutionMode(_executionMode);
+        return controller;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    public static void main(Args _args)
+    {
+        MultiThreadingGetWorkItemController multiThreadingGetWorkItemController = MultiThreadingGetWorkItemController::construct();
+        MultiThreadingGetWorkItemController.parmArgs(_args);
+        MultiThreadingGetWorkItemController.startOperation();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

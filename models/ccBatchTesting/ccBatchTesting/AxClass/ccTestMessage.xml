@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ccTestMessage</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[SysMessageTypeFactory(SysMessageType::ccTestMessage)]
+public final class ccTestMessage extends SysMessageTypeMetadata
+{
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>canSendMessageUsingMessageService</Name>
+				<Source><![CDATA[
+    public boolean canSendMessageUsingMessageService(SysMessageQueue _messageQueue, CompanyId _companyId)
+    {
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>canSendMessage</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Validates if it is allowed to send a message on a given queue.
+    /// </summary>
+    /// <param name = "_messageQueue">A queue to send message to.</param>
+    /// <param name = "_messageTarget">A message target.</param>
+    /// <param name = "_sourceMessageTarget">A message source.</param>
+    /// <returns>true if it is allowed to send a message; false, otherwise.</returns>
+    public boolean canSendMessage(SysMessageQueue _messageQueue, SysMessageTargetRecId _messageTarget, SysMessageTargetRecId _sourceMessageTarget)
+    {
+        if (_messageQueue == SysMessageQueue::ccTestQueue)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getAllowedMessageStateTransitions</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Returns a list of allowed message state transitions.
+    /// </summary>
+    /// <returns>A list of allowed message state transitions.</returns>
+    public Enumerator getAllowedMessageStateTransitions()
+    {
+        // Allow the following state transitions:
+
+        // SysMessageState::None -> SysMessageState::Queued
+        // SysMessageState::None -> SysMessageState::Processed
+
+        // SysMessageState::Queued -> SysMessageState::Processed
+
+        // SysMessageState::Failed -> SysMessageState::Queued
+        // SysMessageState::Failed -> SysMessageState::Cancelled
+        // SysMessageState::Failed -> SysMessageState::Processed
+
+        return SysMessageStateTransition::getProcessedCancelledStateTransitions();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getDependencies</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Returns dependencies related to a message.
+    /// </summary>
+    /// <param name = "_message">The message to add dependencies to.</param>
+    /// <returns>A list of dependencies related to a message.</returns>
+    public List getDependencies(SysMessage _message)
+    {
+        List dependencies = new List(Types::Record);
+
+        // Add a dependency to the message if you need to process messages in order.
+        // For example, process a start message before an end message.
+        // The message will not be processed before the dependent message is processed or cancelled.
+
+        // The default scheduler, SysMessageKeyDateTimeSequenceProcessorScheduler only supports one dependency per message.
+        // Messages with different keys may be processed in parallel.
+
+        //SysMessageDependencyKey dependencyKey = strFmt('Mykey:%1', this.getContract(_message).parmMyKey());
+        //dependencies.addEnd(SysMessageKeyDateTimeSequenceDependency::create(dependencyKey));
+
+        return dependencies;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>processMessageStateTransition</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Execute the logic associated with the given message state transition.
+    /// </summary>
+    /// <param name = "_message">The message.</param>
+    /// <param name = "_messageStateTransition">The state transition to execute.</param>
+    public void processMessageStateTransition(SysMessage _message, SysMessageStateTransition _messageStateTransition)
+    {
+        if (_messageStateTransition.isEqual(SysMessageStateTransition::newFromStates(SysMessageState::Queued, SysMessageState::Processed)))
+        {
+            this.processMessage(_message);
+        }
+        else if (_messageStateTransition.isEqual(SysMessageStateTransition::newFromStates(SysMessageState::Failed, SysMessageState::Processed)))
+        {
+            this.cancelMessage(_message);
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>processMessage</Name>
+				<Source><![CDATA[
+    private void processMessage(SysMessage _message)
+    {
+        // Add logic to process the message.
+        System.ArgumentException ex;
+        int start = Global::infologLine();
+        try
+        {
+            ccQueueTestProcessor::processMessage(_message);
+        }
+        catch(ex)
+        {
+            Global::exceptionTextFallThrough();
+        }
+        finally
+        {
+            error(strFmt('Error in method %1 Stack: %2', funcName(), con2Str(xSession::xppCallStack())));
+        }
+
+
+        
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>cancelMessage</Name>
+				<Source><![CDATA[
+    private void cancelMessage(SysMessage _message)
+    {
+        // Add logic to cancel the message if needed.
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>contractClass</Name>
+				<Source><![CDATA[
+    private ClassId contractClass()
+    {
+        return classNum(MyContract);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getContract</Name>
+				<Source><![CDATA[
+    protected MyContract getContract(SysMessage _message, ClassId _objectTypeId = this.contractClass())
+    {
+        var contract = FormJsonSerializer::deserializeObject(_objectTypeId, _message.Content) as MyContract;
+
+        return contract;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
