@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ProcessStagingTable</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class ProcessStagingTable
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>processStagingTableRecord</Name>
+				<Source><![CDATA[
+    public static void processStagingTableRecord(ccBatchWorkLoad _stagingTable)
+    {
+        if (_stagingTable.dummyValue mod 10 == 0)
+        {
+            throw error(strFmt('random error for record: %1', _stagingTable.dummyValue));
+        }
+        //process the data in the record.
+        info(strfmt("Value is %1", _stagingTable.dummyValue));
+        //sleep(5000);
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<z:anyType xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns=""
+	i:type="AxCompilerMetadata" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/">
+	<IsPublic>true</IsPublic>
+	<Attributes>
+		<AxAttribute>
+			<Name>DataContract</Name>
+			<Parameters />
+		</AxAttribute>
+	</Attributes>
+	<Members>
+		<AxClassMemberVariable>
+			<Type>Int32</Type>
+			<TypeName></TypeName>
+			<Name>numberOfThreads</Name>
+			<Attributes />
+		</AxClassMemberVariable>
+	</Members>
+	<Methods>
+		<Method>
+			<Name>parmNumberOfThreads</Name>
+			<Visibility>Public</Visibility>
+			<Attributes>
+				<AxAttribute>
+					<Name>DataMember</Name>
+					<Parameters />
+				</AxAttribute>
+				<AxAttribute>
+					<Name>SysOperationLabel</Name>
+					<Parameters>
+						<AxAttributeParameter>
+							<Type>Intrinsic</Type>
+							<TypeValue>literalStr</TypeValue>
+							<AdditionalData>
+								<AxAttributeParameter>
+									<TypeValue>Number of threads</TypeValue>
+									<AdditionalData />
+								</AxAttributeParameter>
+								<AxAttributeParameter>
+									<AdditionalData />
+								</AxAttributeParameter>
+								<AxAttributeParameter>
+									<AdditionalData />
+								</AxAttributeParameter>
+							</AdditionalData>
+						</AxAttributeParameter>
+					</Parameters>
+				</AxAttribute>
+			</Attributes>
+			<Parameters>
+				<AxMethodParameter>
+					<Type>Int32</Type>
+					<TypeName></TypeName>
+					<DefaultValue>numberOfThreads</DefaultValue>
+					<Name>_numberOfThreads</Name>
+				</AxMethodParameter>
+			</Parameters>
+			<ReturnType>
+				<Type>Int32</Type>
+				<TypeName></TypeName>
+			</ReturnType>
+		</Method>
+	</Methods>
+</z:anyType>

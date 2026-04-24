@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ccQueueTestProcessor</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+using Newtonsoft.Json.Linq;
+
+public class ccQueueTestProcessor
+{
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>processMessage</Name>
+				<Source><![CDATA[
+    public static void processMessage(SysMessage _message)
+    {
+        JObject result = JObject::Parse(_message.Content);
+        ccQueueTestTable01 dummy;
+        dummy.someKey = result.GetValue('someKey').ToString();
+        dummy.SomeValue = result.GetValue('someValue').ToString();
+        dummy.insert();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
