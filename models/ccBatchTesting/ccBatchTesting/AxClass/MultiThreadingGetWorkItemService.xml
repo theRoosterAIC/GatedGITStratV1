@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>MultiThreadingGetWorkItemService</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class MultiThreadingGetWorkItemService extends SysOperationServiceBase
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>process</Name>
+				<Source><![CDATA[
+    public void process()
+    {
+        ccBatchWorkLoad     stagingTable;
+        stagingTable.readPast(true);
+
+        do
+        {
+
+            try
+            {
+                ttsBegin;
+
+                select pessimisticlock firstOnly stagingTable
+                    where stagingTable.ccBatchProcStatus == ccBatchProcStatus::InProcessing;
+                
+                if (stagingTable)
+                {
+                    ProcessStagingTable::processStagingTableRecord(stagingTable);
+                    stagingTable.ccBatchProcStatus = ccBatchProcStatus::Processed;
+                    stagingTable.update();
+                }
+                ttscommit;
+            }
+            catch
+            {
+                //revert data
+                ttsabort;
+                ttsbegin;
+                ccBatchWorkLoad recordToUpdate;
+                select forupdate firstonly recordToUpdate where recordToUpdate.RecId == stagingTable.RecId;
+                recordToUpdate.ccBatchProcStatus = ccBatchProcStatus::Error;
+                recordToUpdate.update();
+                ttscommit;
+                info('in the catch of MultiThreadingGetWorkItemService.process()');
+                //log errors
+            }
+                
+        }
+        while (stagingTable);
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

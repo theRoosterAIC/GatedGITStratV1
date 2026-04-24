@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>MyContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[DataContractAttribute]
+public class MyContract
+{
+
+    // Private member variables
+    str companyId;
+    str messageQueue;
+    str messageType;
+    str messageContent;
+    str messageId;
+    str myKey;
+    utcdatetime timestamp;
+    str eventType;
+    str payload;
+
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>parmMyKey</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute]
+    public str parmMyKey(str _myKey = myKey)
+    {
+        myKey = _myKey;
+        return myKey;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmMessageId</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute]
+    public str parmMessageId(str _messageId = messageId)
+    {
+        messageId = _messageId;
+        return messageId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmMessageContent</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute]
+    public str parmMessageContent(str _messageContent = messageContent)
+    {
+        messageContent = _messageContent;
+        return messageContent;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmMessageType</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute]
+    public str parmMessageType(str _messageType = messageType)
+    {
+        messageType = _messageType;
+        return messageType;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmMessageQueue</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute]
+    public str parmMessageQueue(str _messageQueue = messageQueue)
+    {
+        messageQueue = _messageQueue;
+        return messageQueue;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmCompanyId</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute]
+    public str parmCompanyId(str _companyId = companyId)
+    {
+        companyId = _companyId;
+        return companyId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmTimestamp</Name>
+				<Source><![CDATA[
+    // Parm method for timestamp
+    [DataMemberAttribute]
+    public utcdatetime parmTimestamp(utcdatetime _timestamp = timestamp)
+    {
+        timestamp = _timestamp;
+        return timestamp;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmEventType</Name>
+				<Source><![CDATA[
+    // Parm method for eventType
+
+    [DataMemberAttribute]
+    public str parmEventType(str _eventType = eventType)
+    {
+        eventType = _eventType;
+        return eventType;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmPayload</Name>
+				<Source><![CDATA[
+    // Parm method for payload
+    [DataMemberAttribute]
+    public str parmPayload(str _payload = payload)
+    {
+        payload = _payload;
+        return payload;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

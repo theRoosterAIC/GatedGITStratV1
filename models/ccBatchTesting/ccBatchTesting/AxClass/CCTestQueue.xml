@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>CCTestQueue</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[SysMessageQueueFactory(SysMessageQueue::ccTestQueue)]
+public final class CCTestQueue extends SysMessageQueueMetadata
+{
+                   
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>canSendMessageUsingMessageService</Name>
+				<Source><![CDATA[
+    public boolean canSendMessageUsingMessageService(SysMessageType _messageType, CompanyId _companyId)
+    {
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getDefaultMessageProcessorsTasks</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Gets the default number of message processor tasks.
+    /// </summary>
+    /// <returns>The default number of message processor tasks.</returns>
+    public SysMessageProcessorsTasks getDefaultMessageProcessorsTasks()
+    {
+        return 1;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getMaxBundleSize</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Get the maximum number of messages in a bundle.
+    /// </summary>
+    /// <returns>The maximum number of messages in a bundle.</returns>
+    public SysMessageProcessorMaxBundleSize getMaxBundleSize()
+    {
+        return 10;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>queueMessageOnSend</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Determines if messages should be queued when sending or processing messages.
+    /// </summary>
+    /// <returns>true if messages should be queued when sending a message; otherwise false.</returns>
+    public boolean queueMessageOnSend()
+    {
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>commitPerCreatedTransactionID</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Determines if dependent messages should be committed per created transaction ID.
+    /// </summary>
+    /// <returns>true if dependent messages should be committed per created transaction ID.; otherwise false.</returns>
+    public boolean commitPerCreatedTransactionID()
+    {
+        return false;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

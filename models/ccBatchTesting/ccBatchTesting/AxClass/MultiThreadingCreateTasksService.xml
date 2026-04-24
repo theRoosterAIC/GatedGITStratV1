@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>MultiThreadingCreateTasksService</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class MultiThreadingCreateTasksService extends SysOperationServiceBase
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>process</Name>
+				<Source><![CDATA[
+    public void process(MultiThreadingCreateTasksContract  _contract)
+    {
+        BatchHeader                             batchHeader;
+        SysOperationServiceController           controller;
+        ccBatchWorkLoad                         stagingTable;
+        int                                     totalNumberOfTasksNeeded = _contract.parmNumberOfThreads();
+        int                                     threadCount;
+        Args                                    args = new Args();
+
+        select count(RecId) from stagingTable where
+            stagingTable.ccBatchProcStatus == ccBatchProcStatus::ToBeProcessed;
+        
+        if (stagingTable.RecId > 0)
+        {
+            update_recordset stagingTable
+                setting ccBatchProcStatus = ccBatchProcStatus::InProcessing
+                where stagingTable.ccBatchProcStatus == ccBatchProcStatus::ToBeProcessed;
+
+            //batchHeader = BatchHeader::construct();
+            batchHeader = this.getCurrentBatchHeader();
+
+            //Creating tasks
+            for(threadCount = 1; threadCount <= totalNumberOfTasksNeeded; threadCount++)
+            {
+                controller = MultiThreadingGetWorkItemController::construct();
+                batchHeader.addTask(controller);
+            }
+            batchHeader.save();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
