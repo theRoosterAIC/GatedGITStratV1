@@ -1,0 +1,11 @@
+﻿CCTestQueue	SysMessageQueueMetadata
+ccTestBatchRunner	
+MultiThreadingCreateTasksContract	
+MultiThreadingGetWorkItemService	SysOperationServiceBase
+MyContract	
+MultiThreadingGetWorkItemController	SysOperationServiceController
+ProcessStagingTable	
+MultiThreadingCreateTasksService	SysOperationServiceBase
+MultiThreadingCreateTasksController	SysOperationServiceController
+ccTestMessage	SysMessageTypeMetadata
+ccQueueTestProcessor	

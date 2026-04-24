@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<z:anyType xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns=""
+	i:type="AxCompilerMetadata" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/">
+	<Extends>SysOperationServiceBase</Extends>
+	<IsPublic>true</IsPublic>
+	<Methods>
+		<Method>
+			<Name>process</Name>
+			<Visibility>Public</Visibility>
+			<Parameters>
+				<AxMethodParameter>
+					<Type>Class</Type>
+					<TypeName>MultiThreadingCreateTasksContract</TypeName>
+					<Name>_contract</Name>
+				</AxMethodParameter>
+			</Parameters>
+			<ReturnType>
+				<TypeName></TypeName>
+			</ReturnType>
+			<Variables>
+				<AxMethodVariable>
+					<Type>Class</Type>
+					<TypeName>BatchHeader</TypeName>
+					<Name>batchHeader</Name>
+				</AxMethodVariable>
+				<AxMethodVariable>
+					<Type>Class</Type>
+					<TypeName>SysOperationServiceController</TypeName>
+					<Name>controller</Name>
+				</AxMethodVariable>
+				<AxMethodVariable>
+					<Type>Record</Type>
+					<TypeName>ccBatchWorkLoad</TypeName>
+					<Name>stagingTable</Name>
+				</AxMethodVariable>
+				<AxMethodVariable>
+					<Type>Int32</Type>
+					<TypeName></TypeName>
+					<Name>totalNumberOfTasksNeeded</Name>
+				</AxMethodVariable>
+				<AxMethodVariable>
+					<Type>Int32</Type>
+					<TypeName></TypeName>
+					<Name>threadCount</Name>
+				</AxMethodVariable>
+				<AxMethodVariable>
+					<Type>Class</Type>
+					<TypeName>Args</TypeName>
+					<Name>args</Name>
+				</AxMethodVariable>
+			</Variables>
+		</Method>
+	</Methods>
+</z:anyType>
