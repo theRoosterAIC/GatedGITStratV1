@@ -30,6 +30,8 @@ internal final class ccTestBatchRunner
 
         //making changes with Rory
 
+	//feature/Mod-002 was here
+
 
         int i;
         ccBatchWorkLoad stagingTable;
