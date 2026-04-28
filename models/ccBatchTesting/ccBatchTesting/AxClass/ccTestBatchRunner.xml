@@ -35,6 +35,7 @@ internal final class ccTestBatchRunner
 	//feature/Mod-003 was also here
 	//mod4
 	//mod5
+	//mod6
 
         int i;
         ccBatchWorkLoad stagingTable;
